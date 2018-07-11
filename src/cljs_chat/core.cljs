@@ -25,8 +25,25 @@
    [:textarea.input]
    [:button.button "Send"]])
 
+(rum/defc message [{:keys [user uid time body src]} message]
+  [:.message {:class src}
+   [:img.avatar {:src "https://user-images.githubusercontent.com/6009640/31679076-dc7581c6-b391-11e7-87fe-a8fa89793c63.png"}]
+   [:.message-buble
+    [:.message-meta
+     [:.message-user user]
+     [:.message-time time]]
+    [:.message-text body]]])
+
+(def msg
+  {:user "username" ;; GitHub username
+   :uid "CEhmVGg3qnpqSnPwAF" ;; uid from firebase auth response
+   :time "Fri, 06 Jul 2018 18:19:05 GMT" ;;new Date().toUTCString(),
+   :body "message text"})
+
 (rum/defc content []
-  [:.content])
+  [:.content
+   (message (assoc msg :src "other"))
+   (message (assoc msg :src "me"))])
 
 (rum/defc screen []
   [:.screen
@@ -43,43 +60,3 @@
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 )
 
-
-;; <div class="screen">
-;;   <div class="header">
-;;     <div class="header-left"></div>
-;;     <div class="header-title">Clojure Learning Group</div>
-;;     <div class="header-right">
-;;       <img class="avatar" src="https://user-images.githubusercontent.com/6009640/31679076-dc7581c6-b391-11e7-87fe-a8fa89793c63.png"></img>
-;;     </div>
-;;   </div>
-;;   <div class="content">
-;;     <div class="message other">
-;;       <img class="avatar" src="https://user-images.githubusercontent.com/6009640/31679076-dc7581c6-b391-11e7-87fe-a8fa89793c63.png"></img>
-;;       <div class="message-buble">
-;;         <div class="message-meta">
-;;           <div class="message-user">@john01</div>
-;;           <div class="message-time">7/2/2018, 11:38:12 PM</div>
-;;         </div>
-;;         <div class="message-text">
-;;           Hello! I’m fineklasdjakshdakjslaksjdkjashjahdkashdjkahsdkjasgdjhagdjhasgdh, thanks!
-;;         </div>
-;;       </div>
-;;     </div>
-;;     <div class="message me">
-;;       <img class="avatar" src="https://user-images.githubusercontent.com/6009640/31679076-dc7581c6-b391-11e7-87fe-a8fa89793c63.png"></img>
-;;       <div class="message-buble">
-;;         <div class="message-meta">
-;;           <div class="message-user">@mark59</div>
-;;           <div class="message-time">7/2/2018, 11:38:12 PM</div>
-;;         </div>
-;;         <div class="message-text">
-;;           Hello! I’m fine, thanks!
-;;         </div>
-;;       </div>
-;;     </div>
-;;   </div>
-;;   <div class="footer">
-;;     <textarea class="input"></textarea>
-;;     <button class="button">Send</button>
-;;   </div>
-;; </div>
