@@ -32,6 +32,8 @@ small {
   align-items: center;
 }
 .screen.profile .content {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -183,4 +185,3 @@ small {
 .message-time {
   color: #555555;
 }
-

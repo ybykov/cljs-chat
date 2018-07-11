@@ -51,7 +51,28 @@
    (content)
    (footer)])
 
-(rum/mount (screen)
+(def user
+  {:username "@johndoe"
+   :full-name "John Doe"
+   :bio "Github bio"})
+
+(rum/defc screen-profile [{:keys [username full-name bio]} user]
+  [:.screen.profile
+   [:.header
+    [:.header-left
+     [:small
+      [:a {:href "#/chat"} "back to chat"]]]
+    [:.header-title username]
+    [:.header-right]]
+   [:.content
+    [:img.avatar.avatar-xl {:src "https://user-images.githubusercontent.com/6009640/31679076-dc7581c6-b391-11e7-87fe-a8fa89793c63.png"}]
+    [:.profile-info
+     [:.username username]
+     [:.full-name full-name]
+     [:.bio bio]]
+    [:button.button "Upload background"]]])
+
+(rum/mount (screen-profile user)
            (. js/document (getElementById "app")))
 
 (defn on-js-reload []
@@ -59,4 +80,5 @@
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 )
+
 
